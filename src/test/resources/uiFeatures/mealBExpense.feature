@@ -21,7 +21,7 @@ Feature: Expense
     And I am on the "Expenses" page
     And I can add expense
 
-  @MB-007 @run
+  @MB-007
   Scenario: User should be able to create expense on MB
     Then I navigate to the expense modal window
     Then I complete all fields of expense modal window
