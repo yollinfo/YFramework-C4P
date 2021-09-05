@@ -4,8 +4,8 @@ Feature: Expense
     Given I'm on the MealB landing page
     Given I login with username as "elnar" and password as "mart12345"
     And I am on the "Expenses" page
-@Regression
-  @MB-004 @Parallel
+
+  @MB-004 @Parallel @Regression
   Scenario: View Column options in Dropdown
     Then I see below options when clicked on column dropdown
       |option|
