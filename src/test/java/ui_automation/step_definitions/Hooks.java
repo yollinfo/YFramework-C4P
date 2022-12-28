@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class Hooks {
     public WebDriver driver=null;
 
-    // before each scenario
     @Before
     public void setUp(){
         driver= BrowserFactory.createInstance();
@@ -26,7 +25,6 @@ public class Hooks {
         driver.manage().window().maximize();
     }
 
-    // before each scenario
     @After
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
