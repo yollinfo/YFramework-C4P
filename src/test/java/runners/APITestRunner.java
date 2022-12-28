@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         glue={"api_automation.stepDefinition"},
         dryRun = false,
         monochrome = true,
-        tags = { "@ApiRegression" },
+        tags = { "@2" },
         plugin = { "pretty", "html:target/cucumber-html-report", "json:target/cucumber.json" }
 )
 public class APITestRunner {

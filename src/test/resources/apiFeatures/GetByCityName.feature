@@ -1,7 +1,7 @@
 Feature: Get weather by city name 
 
 
-@test1  @ApiRegression
+@test1 
 Scenario Outline: Post Once  validate multiple times 
 	Given User gets weather for "Washington DC" city when flag is "<flags>" 
 	Then User validates response with "<jsonPath>" 
@@ -20,7 +20,7 @@ Scenario Outline: Post Once  validate multiple times
 		|false         |$.base                             | 
 		
 		
-		@byCityName @ct1  @ApiRegression
+		@byCityName @ct1 
 		Scenario Outline: Positive test 
 			Given User gets weather for "Washington DC" city 
 			Then User validates "<element>" in response with "<jsonPath>" 

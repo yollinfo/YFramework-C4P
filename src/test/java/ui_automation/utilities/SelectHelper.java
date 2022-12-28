@@ -27,7 +27,7 @@ public class SelectHelper extends  GenericHelper{
         }
     }
 
-    public static void SelectUsingVisibleValue(WebElement element,String visibleValue) {
+    public void SelectUsingVisibleValue(WebElement element,String visibleValue) {
         Select select = new Select(element);
         select.selectByVisibleText(visibleValue);
         oLog.info("Locator : " + element + " Value : " + visibleValue);

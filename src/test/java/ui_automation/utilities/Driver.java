@@ -7,7 +7,6 @@ public class Driver {
 
     }
     private static Driver instance=new Driver();
-
     public static Driver getInstance(){
         return instance;
     }
@@ -17,9 +16,7 @@ public class Driver {
     public WebDriver getDriver(){
         return driver.get();
     }
-
     public  void setDriver(WebDriver driverParameter){
-
         driver.set(driverParameter);
     }
     public void removeDriver(){

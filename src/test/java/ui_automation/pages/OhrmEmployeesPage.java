@@ -36,26 +36,4 @@ public class OhrmEmployeesPage {
 
     @FindBy(id="resultTable")
     public WebElement employeeTable;
-
-    @FindBy(id="menu_pim_addEmployee")
-    public WebElement addEmployeeTab;
-
-    @FindBy(id="firstName")
-    public WebElement firstNameInput;
-
-    @FindBy(id="lastName")
-    public WebElement lastNameInput;
-
-    @FindBy(id="middleName")
-    public WebElement middleNameInput;
-
-    @FindBy(id="photofile")
-    public WebElement uploadEmpPicBtn;
-
-    @FindBy(id="btnSave")
-    public WebElement saveEmpBtn;
-
-    @FindBy(id="personal_txtEmpFirstName")
-    public WebElement viewFirstNameField;
-
 }

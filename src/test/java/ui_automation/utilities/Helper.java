@@ -74,7 +74,7 @@ public class Helper {
         return select.getFirstSelectedOption();
     }
 
-    public static void clickWithJS(WebElement element) {
+    public void clickWithJS(WebElement element) {
         ((JavascriptExecutor) Driver.getInstance().getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
         ((JavascriptExecutor) Driver.getInstance().getDriver()).executeScript("arguments[0].click();", element);
     }

@@ -6,16 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="YFrameworkFinalC6P 2" />
-        <module name="zk" />
-        <module name="YFrameworkFinalC6P" />
-        <module name="NFTDB" />
-        <module name="YFrameworkFinalC7P" />
         <module name="YFrameworkFinalC4" />
-        <module name="OrkhanFinalFrameWorkDec9" />
+        <module name="zk" />
         <module name="YFrameworkFinal" />
-        <module name="YFrameworkFinalC8" />
         <module name="YFramework" />
+        <module name="NFTDB" />
       </profile>
     </annotationProcessing>
   </component>
