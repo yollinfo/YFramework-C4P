@@ -1,3 +1,4 @@
+@regression
 Feature: As an administrator I should be able to view all employees and search.
   Background:
     Given I'm on logged in to OrangeHRM as admin
