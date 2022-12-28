@@ -1,0 +1,78 @@
+Index: src/test/java/ui_automation/step_definitions/Hooks.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ui_automation.step_definitions;\r\n\r\n\r\nimport io.cucumber.core.api.Scenario;\r\nimport io.cucumber.java.After;\r\nimport io.cucumber.java.Before;\r\nimport org.openqa.selenium.OutputType;\r\nimport org.openqa.selenium.TakesScreenshot;\r\nimport org.openqa.selenium.WebDriver;\r\nimport ui_automation.utilities.BrowserFactory;\r\nimport ui_automation.utilities.Driver;\r\n\r\nimport java.util.concurrent.TimeUnit;\r\n\r\npublic class Hooks {\r\n    public WebDriver driver=null;\r\n\r\n    @Before\r\n    public void setUp(){\r\n        driver= BrowserFactory.createInstance();\r\n        Driver.getInstance().setDriver(driver);\r\n        driver=Driver.getInstance().getDriver();\r\n\r\n        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);\r\n        driver.manage().window().maximize();\r\n    }\r\n\r\n    @After\r\n    public void tearDown(Scenario scenario) {\r\n        if (scenario.isFailed()) {\r\n            final byte[] screenshot = ((TakesScreenshot) Driver.getInstance().getDriver()).getScreenshotAs(OutputType.BYTES);\r\n            scenario.embed(screenshot, \"image/png\");\r\n        }\r\n       Driver.getInstance().removeDriver();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/ui_automation/step_definitions/Hooks.java b/src/test/java/ui_automation/step_definitions/Hooks.java
+--- a/src/test/java/ui_automation/step_definitions/Hooks.java	
++++ b/src/test/java/ui_automation/step_definitions/Hooks.java	
+@@ -31,6 +31,6 @@
+             final byte[] screenshot = ((TakesScreenshot) Driver.getInstance().getDriver()).getScreenshotAs(OutputType.BYTES);
+             scenario.embed(screenshot, "image/png");
+         }
+-       Driver.getInstance().removeDriver();
++    //   Driver.getInstance().removeDriver();
+     }
+ }
+\ No newline at end of file
+Index: src/test/java/ui_automation/utilities/BrowserFactory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ui_automation.utilities;\r\n\r\nimport io.github.bonigarcia.wdm.WebDriverManager;\r\nimport org.openqa.selenium.WebDriver;\r\nimport org.openqa.selenium.WebDriverException;\r\nimport org.openqa.selenium.chrome.ChromeDriver;\r\nimport org.openqa.selenium.chrome.ChromeOptions;\r\nimport org.openqa.selenium.edge.EdgeDriver;\r\nimport org.openqa.selenium.firefox.FirefoxDriver;\r\nimport org.openqa.selenium.firefox.FirefoxOptions;\r\nimport org.openqa.selenium.ie.InternetExplorerDriver;\r\nimport org.openqa.selenium.remote.RemoteWebDriver;\r\nimport org.openqa.selenium.safari.SafariDriver;\r\n\r\nimport java.net.MalformedURLException;\r\nimport java.net.URL;\r\n\r\npublic class BrowserFactory {\r\n        public static WebDriver createInstance() {\r\n\r\n            WebDriver driver = null;\r\n\r\n            try {\r\n                if (driver == null) {\r\n                    if(System.getProperty(\"browser\")==null){\r\n                        WebDriverManager.chromedriver().setup();\r\n                        driver = new ChromeDriver();\r\n                    }\r\n                    else {\r\n                        switch (System.getProperty(\"browser\")) {\r\n                            case \"chrome-headless\":\r\n                                WebDriverManager.chromedriver().setup();\r\n                                driver = new ChromeDriver(new ChromeOptions().setHeadless(true));\r\n                                break;\r\n                            case \"chromeRemote\":\r\n                                ChromeOptions chrOptions = new ChromeOptions();\r\n                                try {\r\n                                    driver = new RemoteWebDriver(new URL(\"http://54.88.214.189:4444/wd/hub\"), chrOptions);\r\n                                } catch (MalformedURLException e) {\r\n                                    e.printStackTrace();\r\n                                }\r\n                                break;\r\n                            case \"firefox\":\r\n                                WebDriverManager.firefoxdriver().setup();\r\n                                driver = new FirefoxDriver();\r\n                                break;\r\n                            case \"firefox-headless\":\r\n                                WebDriverManager.firefoxdriver().setup();\r\n                                driver = new FirefoxDriver(new FirefoxOptions().setHeadless(true));\r\n                                break;\r\n                            case \"firefoxRemote\":\r\n                                FirefoxOptions firOptions = new FirefoxOptions();\r\n                                try {\r\n                                    driver = new RemoteWebDriver(new URL(\"http://54.88.214.189:4444/wd/hub\"), firOptions);\r\n                                } catch (MalformedURLException e) {\r\n                                    e.printStackTrace();\r\n                                }\r\n                                break;\r\n                            case \"ie\":\r\n                                if (System.getProperty(\"os.name\").toLowerCase().contains(\"mac\")) {\r\n                                    throw new WebDriverException(\"Your operating system does not support the requested browser\");\r\n                                }\r\n                                WebDriverManager.iedriver().setup();\r\n                                driver = new InternetExplorerDriver();\r\n                                break;\r\n\r\n                            case \"edge\":\r\n                                if (System.getProperty(\"os.name\").toLowerCase().contains(\"mac\")) {\r\n                                    throw new WebDriverException(\"Your operating system does not support the requested browser\");\r\n                                }\r\n                                WebDriverManager.edgedriver().setup();\r\n                                driver = new EdgeDriver();\r\n                                break;\r\n\r\n                            case \"safari\":\r\n                                if (System.getProperty(\"os.name\").toLowerCase().contains(\"windows\")) {\r\n                                    throw new WebDriverException(\"Your operating system does not support the requested browser\");\r\n                                }\r\n                                WebDriverManager.getInstance(SafariDriver.class).setup();\r\n                                driver = new SafariDriver();\r\n                                break;\r\n                            default:\r\n                                WebDriverManager.chromedriver().setup();\r\n                                driver = new ChromeDriver();\r\n                                break;\r\n                        }\r\n                    }\r\n                }\r\n            } catch (Exception e) {\r\n                e.printStackTrace();\r\n                return null;\r\n            }\r\n            return driver;\r\n        }\r\n    }
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/ui_automation/utilities/BrowserFactory.java b/src/test/java/ui_automation/utilities/BrowserFactory.java
+--- a/src/test/java/ui_automation/utilities/BrowserFactory.java	
++++ b/src/test/java/ui_automation/utilities/BrowserFactory.java	
+@@ -14,6 +14,7 @@
+ 
+ import java.net.MalformedURLException;
+ import java.net.URL;
++import java.util.HashMap;
+ 
+ public class BrowserFactory {
+         public static WebDriver createInstance() {
+@@ -23,8 +24,20 @@
+             try {
+                 if (driver == null) {
+                     if(System.getProperty("browser")==null){
++//                        WebDriverManager.chromedriver().setup();
++//                        driver = new ChromeDriver();
++
+                         WebDriverManager.chromedriver().setup();
+-                        driver = new ChromeDriver();
++                        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
++                        chromePrefs.put("profile.default_content_settings.popups", 0);
++                        chromePrefs.put("download.default_directory",
++                          //      System.getProperty
++                                        "C:\\Selenium\\YFrameworkFinalC5P\\src\\test\\resources\\testData\\Downloads");
++                        ChromeOptions options = new ChromeOptions();
++                        options.setExperimentalOption("prefs", chromePrefs);
++                        driver = new ChromeDriver(options);
++
++
+                     }
+                     else {
+                         switch (System.getProperty("browser")) {
+Index: src/test/java/runners/UITestRunner.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package runners;\r\n\r\n\r\nimport io.cucumber.junit.Cucumber;\r\nimport io.cucumber.junit.CucumberOptions;\r\nimport org.junit.runner.RunWith;\r\n\r\n@RunWith(Cucumber.class)\r\n@CucumberOptions(\r\n        plugin = {\"pretty\",\"html:target/cucumber\",\r\n        \"json:target/cucumber.json\"},\r\n        features=\"src/test/resources/uiFeatures\",\r\n        glue=\"ui_automation.step_definitions\",\r\n        tags=\"@hrm\",\r\n        dryRun = false\r\n        //monochrome = true\r\n)\r\n\r\npublic class UITestRunner {\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/runners/UITestRunner.java b/src/test/java/runners/UITestRunner.java
+--- a/src/test/java/runners/UITestRunner.java	
++++ b/src/test/java/runners/UITestRunner.java	
+@@ -11,7 +11,7 @@
+         "json:target/cucumber.json"},
+         features="src/test/resources/uiFeatures",
+         glue="ui_automation.step_definitions",
+-        tags="@hrm",
++        tags="@excelRun",
+         dryRun = false
+         //monochrome = true
+ )
