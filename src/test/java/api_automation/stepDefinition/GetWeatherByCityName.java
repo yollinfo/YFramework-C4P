@@ -1,9 +1,11 @@
 package api_automation.stepDefinition;
 
 
-import cucumber.api.Scenario;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.*;
+
+
+import io.cucumber.core.api.Scenario;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;

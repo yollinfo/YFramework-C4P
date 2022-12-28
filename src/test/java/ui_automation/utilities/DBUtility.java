@@ -13,13 +13,13 @@ public class DBUtility {
 
     public static void openConnection() throws SQLException {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        connection = DriverManager.getConnection(ConfigurationReader.getProperty("ui-config.properties","mysql.url"),
-                ConfigurationReader.getProperty("ui-config.properties","yollhrm.database.username"),
-                ConfigurationReader.getProperty("ui-config.properties","yollhrm.database.password"));
+        connection = DriverManager.getConnection(ConfigurationReader.getProperty("ui-config.properties","mb.database.url"),
+                ConfigurationReader.getProperty("ui-config.properties","mb.database.username"),
+                ConfigurationReader.getProperty("ui-config.properties","mb.database.password"));
         }
 
     public static List<Map<String, Object>> executeSQLQuery(String query) throws SQLException {

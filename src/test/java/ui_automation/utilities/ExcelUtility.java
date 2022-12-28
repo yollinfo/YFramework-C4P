@@ -28,12 +28,19 @@ public class ExcelUtility {
         }
     }
 
-    public static String getCellData(int RowNum, int ColNum) throws Exception{
+    public static Object getCellData(int RowNum, int ColNum) throws Exception{
         try{
             cell = workSheet.getRow(RowNum).getCell(ColNum);
             return cell.getStringCellValue();
-        }catch (Exception e){
-            return"";
+        }catch (Exception IllegalStateException){
+            try{
+                cell = workSheet.getRow(RowNum).getCell(ColNum);
+                return cell.getNumericCellValue();
+            }
+            catch (Exception e){
+                cell = workSheet.getRow(RowNum).getCell(ColNum);
+                return cell.getDateCellValue();
+            }
         }
     }
 

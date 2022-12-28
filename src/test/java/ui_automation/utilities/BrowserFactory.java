@@ -14,6 +14,7 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
 public class BrowserFactory {
         public static WebDriver createInstance() {
@@ -24,7 +25,13 @@ public class BrowserFactory {
                 if (driver == null) {
                     if(System.getProperty("browser")==null){
                         WebDriverManager.chromedriver().setup();
-                        driver = new ChromeDriver();
+                        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+                        chromePrefs.put("download.default_directory", System.getProperty("user.dir")+"\\src\\test\\resources\\testData\\Downloads");
+                        ChromeOptions options = new ChromeOptions();
+                        options.addArguments("--ignore-ssl-errors=yes");
+                        options.addArguments("--ignore-certificate-errors");
+                        options.setExperimentalOption("prefs", chromePrefs);
+                        driver = new ChromeDriver(options);
                     }
                     else {
                         switch (System.getProperty("browser")) {
@@ -33,9 +40,14 @@ public class BrowserFactory {
                                 driver = new ChromeDriver(new ChromeOptions().setHeadless(true));
                                 break;
                             case "chromeRemote":
+                                HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+                                chromePrefs.put("download.default_directory", System.getProperty("user.dir")+"\\src\\test\\resources\\testData\\Downloads");
                                 ChromeOptions chrOptions = new ChromeOptions();
+                                chrOptions.addArguments("--ignore-ssl-errors=yes");
+                                chrOptions.addArguments("--ignore-certificate-errors");
+                                chrOptions.setExperimentalOption("prefs", chromePrefs);
                                 try {
-                                    driver = new RemoteWebDriver(new URL("http://54.86.247.156:4444/wd/hub"), chrOptions);
+                                    driver = new RemoteWebDriver(new URL("http://54.224.48.204:4444/wd/hub"), chrOptions);
                                 } catch (MalformedURLException e) {
                                     e.printStackTrace();
                                 }
@@ -51,7 +63,7 @@ public class BrowserFactory {
                             case "firefoxRemote":
                                 FirefoxOptions firOptions = new FirefoxOptions();
                                 try {
-                                    driver = new RemoteWebDriver(new URL("http://54.86.247.156:4444/wd/hub"), firOptions);
+                                    driver = new RemoteWebDriver(new URL("http://54.224.48.204:4444/wd/hub"), firOptions);
                                 } catch (MalformedURLException e) {
                                     e.printStackTrace();
                                 }
